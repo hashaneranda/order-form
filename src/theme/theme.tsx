@@ -8,7 +8,7 @@ interface ThemeProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const Theme = ({ children }: ThemeProps) => {
+const Theme = ({ children }: ThemeProps): JSX.Element => {
   const [{ theme }] = useThemeValue();
 
   return (
