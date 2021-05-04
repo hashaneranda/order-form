@@ -1,5 +1,6 @@
 export interface InitialState {
   countries: Payload;
+  addresses: Payload;
 }
 
 interface Payload {

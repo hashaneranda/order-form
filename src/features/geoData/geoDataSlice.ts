@@ -9,6 +9,11 @@ const initialState: InitialState = {
     data: null,
     error: null,
   },
+  addresses: {
+    loading: false,
+    data: null,
+    error: null,
+  },
 };
 
 const createdSlice = createSlice({
@@ -43,11 +48,46 @@ const createdSlice = createSlice({
         },
       };
     },
+    fetchAddresses(state) {
+      return {
+        ...state,
+        addresses: { ...state.addresses, loading: true },
+      };
+    },
+    fetchAddressesSuccess(state, action: PayloadAction<any | void>) {
+      return {
+        ...state,
+        addresses: {
+          ...state.addresses,
+          loading: false,
+          data: action?.payload?.data,
+          error: null,
+        },
+      };
+    },
+    fetchAddressesError(state, action: PayloadAction<any | void>) {
+      return {
+        ...state,
+        addresses: {
+          ...state.addresses,
+          loading: false,
+          data: null,
+          error: action?.payload ? (action?.payload.data ? action?.payload.data.message : action?.payload.data) : null,
+        },
+      };
+    },
   },
 });
 
 const { actions, reducer } = createdSlice;
 
-export const { fetchCountries, fetchCountriesSuccess, fetchCountriesError } = actions;
+export const {
+  fetchCountries,
+  fetchCountriesSuccess,
+  fetchCountriesError,
+  fetchAddresses,
+  fetchAddressesSuccess,
+  fetchAddressesError,
+} = actions;
 
 export default reducer;

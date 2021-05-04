@@ -12,3 +12,10 @@ export const fetchCountries = returnSaga(
   actions.fetchCountriesSuccess,
   actions.fetchCountriesError,
 );
+
+export const fetchAddresses = returnSaga(
+  services.fetchAddress,
+  actions.fetchAddresses,
+  actions.fetchAddressesSuccess,
+  actions.fetchAddressesError,
+);
