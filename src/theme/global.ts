@@ -89,6 +89,13 @@ export default createGlobalStyle`
     background: ${props => props.theme.palette.background.main};
   }
 
+  .MuiInput-underline:before {
+    border-color: ${props => props.theme.palette.typography.secondary};
+  }
+  
+  .MuiInput-underline:hover:not(.Mui-disabled):before{
+    border-color: ${props => props.theme.palette.typography.main};
+  }
 
 
 `;
