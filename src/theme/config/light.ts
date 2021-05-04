@@ -13,8 +13,7 @@ const light = {
       main: '#ffffff',
       secondary: '#EEEEEE',
       contrast: '#233253',
-    }
-
+    },
   },
   borders: {
     header: '1px solid #D0D1D2',
