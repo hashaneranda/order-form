@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // types
@@ -20,7 +21,7 @@ const createdSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    createUserDetails(state) {
+    createUserDetails(state, action: PayloadAction<any | void>) {
       return {
         ...state,
         userDetails: { ...state.userDetails, loading: true },

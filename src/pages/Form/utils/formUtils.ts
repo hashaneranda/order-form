@@ -12,7 +12,6 @@ export const initialData: InitialData = {
   email: '',
   phone: '',
   country: '',
-  address: '',
   address01: '',
   address02: '',
   city: '',

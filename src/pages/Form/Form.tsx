@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,7 @@ import { PrimaryButton } from 'common/components/Button/Button';
 // redux
 import { RootState } from 'app/rootReducer';
 import { fetchCountries, fetchCountriesReset, fetchAddresses, fetchAddressesReset } from 'features/geoData/geoDataSlice';
+import { createUserDetails, createUserDetailsReset, createAddressDetails, createAddressDetailsReset } from 'features/order/orderSlice';
 
 // types
 import { Items, InitialData, FormItem } from './types';
@@ -24,17 +25,34 @@ const Form: React.FC = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.geoData.countries);
   const addresses = useSelector((state: RootState) => state.geoData.addresses);
+  const userDetails = useSelector((state: RootState) => state.order.userDetails);
+  const addressdetails = useSelector((state: RootState) => state.order.addressdetails);
 
   const countriesData = useMemo(() => mapDataToSelect(countries.data, 'alpha2Code', 'name'), [countries.data]);
 
   const formInputs = useMemo(() => generateFormInputs(countriesData), [countriesData]);
+
+  const [orderData, setOrderData] = useState<null | InitialData>(null);
 
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
     validationSchema: validationSchema,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onSubmit: (v: InitialData) => {},
+    onSubmit: (v: InitialData) => {
+      console.log('submitetd--', v);
+
+      setOrderData(v);
+
+      dispatch(
+        createUserDetails({
+          firstName: v.firstName,
+          lastName: v.lastName,
+          email: v.email,
+          phone: v.phone,
+        }),
+      );
+    },
   });
 
   useEffect(() => {
@@ -42,8 +60,29 @@ const Form: React.FC = () => {
 
     return () => {
       dispatch(fetchCountriesReset());
+      dispatch(createUserDetailsReset());
+      dispatch(createAddressDetailsReset());
     };
   }, []);
+
+  useEffect(() => {
+    if (userDetails.data && !!orderData) {
+      dispatch(
+        createAddressDetails({
+          country: orderData.country,
+          address01: orderData.address01,
+          address02: orderData.address02,
+          city: orderData.city,
+          province: orderData.province,
+          postalCode: orderData.postalCode,
+          books: orderData.books,
+          cars: orderData.cars,
+          laptops: orderData.laptops,
+          watches: orderData.watches,
+        }),
+      );
+    }
+  }, [userDetails.data]);
 
   /*
    *handle address autoComplete selection
@@ -70,7 +109,7 @@ const Form: React.FC = () => {
   return (
     <Container>
       <h1>Order Details</h1>
-      <FormWrapper>
+      <FormWrapper onSubmit={formik.handleSubmit}>
         {!!formInputs &&
           formInputs.map((formSection: Items, index: number) => (
             <FormSection spacing={3} container key={index}>
@@ -110,8 +149,7 @@ const Form: React.FC = () => {
                           )
                         }
                         onChange={handleAddressSelection}
-                        value={formik.values[item.name]}
-                        inputError={formik.errors[item.name]}
+                        value=''
                         clearData={() => dispatch(fetchAddressesReset())}
                         renderOption={(x: any) => x?.properties?.formatted}
                         disabled={!formik.values['country']}
@@ -145,7 +183,7 @@ const Form: React.FC = () => {
           values={generateIsChecked(checkBoxData, formik.values)}
         />
         <FooterContainer>
-          <PrimaryButton type='submit' onClick={() => console.log('submit')}>
+          <PrimaryButton type='submit' loading={userDetails.loading || addressdetails.loading}>
             SAVE
           </PrimaryButton>
         </FooterContainer>
