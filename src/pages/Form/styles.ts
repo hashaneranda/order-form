@@ -7,6 +7,11 @@ export const Container = styled.div`
   padding: 1em 2em;
 `;
 
+export const FooterContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
 export const FormWrapper = styled.form`
   width: 100%;
   display: flex;

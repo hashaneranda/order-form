@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Grid from '@material-ui/core/Grid';
 
+// components
+import { PrimaryButton } from 'common/components/Button/Button';
+
 // redux
 import { RootState } from 'app/rootReducer';
 import { fetchCountries, fetchCountriesReset, fetchAddresses, fetchAddressesReset } from 'features/geoData/geoDataSlice';
@@ -15,7 +18,7 @@ import { mockEvent, mapDataToSelect, generateIsChecked } from './utils/utils';
 import { validationSchema, generateFormInputs, initialData, checkBoxData } from './utils/formUtils';
 
 // styles
-import { Container, FormWrapper, TextFeild, Select, AutoComplete, FormSection, CheckBox } from './styles';
+import { Container, FormWrapper, TextFeild, Select, AutoComplete, FormSection, CheckBox, FooterContainer } from './styles';
 
 const Form: React.FC = () => {
   const dispatch = useDispatch();
@@ -80,7 +83,6 @@ const Form: React.FC = () => {
                   return (
                     <Grid item sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
                       <Select
-                        key={item.name}
                         labelValue={item.label}
                         data={item.data || []}
                         id={item.name}
@@ -142,6 +144,11 @@ const Form: React.FC = () => {
           data={checkBoxData}
           values={generateIsChecked(checkBoxData, formik.values)}
         />
+        <FooterContainer>
+          <PrimaryButton type='submit' onClick={() => console.log('submit')}>
+            SAVE
+          </PrimaryButton>
+        </FooterContainer>
       </FormWrapper>
     </Container>
   );
