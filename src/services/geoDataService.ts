@@ -15,12 +15,12 @@ export const fetchCountries = async () => {
   return apiRes;
 };
 
-export const fetchAddress = async (request: any) => {
+export const fetchAddress = async (payload: any) => {
   let apiRes = null;
 
   const API_ENDPOINT = constants.fetchAddress({
-    text: request.payload?.text,
-    country: request.payload?.country,
+    text: payload?.text,
+    country: payload?.country,
     code: process.env.REACT_APP_GEOAPIFY_KEY,
   });
 

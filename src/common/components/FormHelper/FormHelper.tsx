@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { FormHelperText, TextField, Select, MenuItem, InputLabel, InputAdornment } from '@material-ui/core';
 import { BaseTextFieldProps } from '@material-ui/core/TextField';
 import { SelectProps } from '@material-ui/core/Select';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // styles
 import { FormControler, SelectFormControl, AutoCompleteFormControl } from './styles';
@@ -76,9 +76,13 @@ interface AutoCompleteTextInputProps {
   labelValue?: string;
   data: Array<any>;
   fetchData: (e: any) => void;
+  onChange: (e: any, n: any) => void;
+  clearData: (e: any) => void;
+  getOptionLabel: (e: any) => string;
   renderOption: (e: any) => React.ReactNode;
-  fetchFlag?: boolean;
-  optionName: string;
+  placeholder?: string;
+  value: any;
+  disabled?: boolean;
 }
 
 export const AutoCompleteTextInput = ({
@@ -86,53 +90,52 @@ export const AutoCompleteTextInput = ({
   formClass,
   data,
   fetchData,
-  fetchFlag,
+  getOptionLabel,
   inputError,
-  optionName,
   renderOption,
+  placeholder,
+  onChange,
+  clearData,
+  disabled,
+  value,
   ...props
 }: AutoCompleteTextInputProps): React.ReactElement => {
-  const filter = createFilterOptions();
-
-  const [open, setOpen] = React.useState(false);
-  const loading = open && data.length === 0 && fetchFlag;
+  const [inputValue, setInputValue] = React.useState('');
 
   useEffect(() => {
     let active = true;
 
-    if (!loading) {
+    if (inputValue === '') {
+      clearData(value ? [value] : []);
       return undefined;
     }
 
-    fetchData(null);
+    if (inputValue.length > 4) fetchData(inputValue);
 
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [disabled, value, inputValue]);
 
   return (
     <AutoCompleteFormControl error={!!inputError}>
       {!!labelValue && <InputLabel id='tags-outlined'>{labelValue}</InputLabel>}
       <Autocomplete
-        onOpen={() => {
-          setOpen(true);
-        }}
-        onClose={() => {
-          setOpen(false);
-        }}
-        multiple
+        autoComplete
+        includeInputInList
+        filterSelectedOptions
+        disabled={disabled}
         id='tags-outlined'
         options={data}
-        getOptionLabel={(option: any) => option[optionName]}
-        filterSelectedOptions
-        filterOptions={(options, params: any) => {
-          const filtered: any = filter(options, params);
-
-          return filtered;
-        }}
-        renderInput={params => <TextField {...params} variant='outlined' placeholder={`${labelValue} values`} />}
+        getOptionLabel={getOptionLabel}
+        filterOptions={(options: any) => options}
+        renderInput={params => <TextField {...params} placeholder={placeholder} />}
         renderOption={renderOption}
+        onChange={onChange}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        value={value}
         {...props}
       />
       <FormHelperText className='defaultHellperTxt'>{inputError ? inputError : ''}</FormHelperText>

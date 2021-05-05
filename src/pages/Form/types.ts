@@ -7,6 +7,7 @@ export interface Items {
   name: string;
   label: string;
   type?: string;
+  placeholder?: string;
   data?: Array<SelectProps>;
 }
 

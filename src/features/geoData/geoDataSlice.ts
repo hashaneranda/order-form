@@ -48,7 +48,13 @@ const createdSlice = createSlice({
         },
       };
     },
-    fetchAddresses(state) {
+    fetchCountriesReset(state) {
+      return {
+        ...state,
+        countries: initialState.countries,
+      };
+    },
+    fetchAddresses(state, action: PayloadAction<any | void>) {
       return {
         ...state,
         addresses: { ...state.addresses, loading: true },
@@ -76,6 +82,12 @@ const createdSlice = createSlice({
         },
       };
     },
+    fetchAddressesReset(state) {
+      return {
+        ...state,
+        addresses: initialState.addresses,
+      };
+    },
   },
 });
 
@@ -85,9 +97,11 @@ export const {
   fetchCountries,
   fetchCountriesSuccess,
   fetchCountriesError,
+  fetchCountriesReset,
   fetchAddresses,
   fetchAddressesSuccess,
   fetchAddressesError,
+  fetchAddressesReset,
 } = actions;
 
 export default reducer;
