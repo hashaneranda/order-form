@@ -1,10 +1,28 @@
 import * as Yup from 'yup';
 
 // types
-import { SelectProps, Items, InitialData } from '../types';
+import { SelectProps, Items, InitialData, CheckItem } from '../types';
 
 // utils
 import { phoneRegex } from './utils';
+
+export const initialData: InitialData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  country: '',
+  address: '',
+  address01: '',
+  address02: '',
+  city: '',
+  province: '',
+  postalCode: '',
+  cars: false,
+  books: false,
+  watches: false,
+  laptops: false,
+};
 
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is Required'),
@@ -15,6 +33,10 @@ export const validationSchema = Yup.object().shape({
   address02: Yup.string().required('Address Line 2 is Required'),
   city: Yup.string().required('City is Required'),
   postalCode: Yup.string().required('Postal Code is Required'),
+  cars: Yup.boolean(),
+  books: Yup.boolean(),
+  watches: Yup.boolean(),
+  laptops: Yup.boolean(),
 });
 
 export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> => {
@@ -144,16 +166,21 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
   ];
 };
 
-export const initialData: InitialData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  country: '',
-  address: '',
-  address01: '',
-  address02: '',
-  city: '',
-  province: '',
-  postalCode: '',
-};
+export const checkBoxData: Array<CheckItem> = [
+  {
+    name: 'cars',
+    title: 'Cars',
+  },
+  {
+    name: 'books',
+    title: 'Books',
+  },
+  {
+    name: 'watches',
+    title: 'Watches',
+  },
+  {
+    name: 'laptops',
+    title: 'Laptops',
+  },
+];

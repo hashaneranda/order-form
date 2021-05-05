@@ -4,9 +4,14 @@ import { FormHelperText, TextField, Select, MenuItem, InputLabel, InputAdornment
 import { BaseTextFieldProps } from '@material-ui/core/TextField';
 import { SelectProps } from '@material-ui/core/Select';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import FormLabel from '@material-ui/core/FormLabel';
+// import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 // styles
-import { FormControler, SelectFormControl, AutoCompleteFormControl } from './styles';
+import { FormControler, SelectFormControl, AutoCompleteFormControl, CheckBoxControl } from './styles';
 
 interface TextInputProps extends BaseTextFieldProps {
   formClass?: string;
@@ -63,6 +68,31 @@ export const Selectbox = ({ formClass, inputError, data, labelValue, ...props }:
       </Select>
       <FormHelperText className='defaultHellperTxt'>{inputError ? inputError : ''}</FormHelperText>
     </SelectFormControl>
+  );
+};
+
+interface CheckBoxeProps {
+  formClass?: string;
+  labelValue?: string;
+  onChange: (e: any, n: any) => void;
+  data: Array<any>;
+  values: any;
+}
+
+export const CheckBoxes = ({ data, labelValue, values, onChange }: CheckBoxeProps) => {
+  return (
+    <CheckBoxControl>
+      <FormLabel component='legend'>{labelValue}</FormLabel>
+      <FormGroup>
+        {data.map((item: any, index: number) => (
+          <FormControlLabel
+            key={index}
+            control={<Checkbox checked={values[item.name]} onChange={onChange} name={item.name} />}
+            label={item.title}
+          />
+        ))}
+      </FormGroup>
+    </CheckBoxControl>
   );
 };
 

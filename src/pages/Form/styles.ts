@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
-import { TextInput, Selectbox, AutoCompleteTextInput } from 'common/components/FormHelper/FormHelper';
+import { TextInput, Selectbox, AutoCompleteTextInput, CheckBoxes } from 'common/components/FormHelper/FormHelper';
 
 export const Container = styled.div`
   padding: 1em 2em;
@@ -56,6 +56,11 @@ export const Select = styled(Selectbox)`
   .MuiInputBase-root {
     height: 3em;
   }
+`;
+
+export const CheckBox = styled(CheckBoxes)`
+  width: 100%;
+  margin-bottom: 0 !important;
 `;
 
 export const AutoComplete = styled(AutoCompleteTextInput)`

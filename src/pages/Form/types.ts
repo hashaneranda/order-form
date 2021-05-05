@@ -25,5 +25,14 @@ export interface Items {
 }
 
 export interface InitialData {
-  [index: string]: string | (string & Date) | undefined;
+  [index: string]: string | (string & Date) | undefined | boolean;
+}
+
+export interface CheckItem {
+  name: string;
+  title: string;
+}
+
+export interface IsChecked {
+  [index: string]: boolean;
 }

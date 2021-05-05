@@ -11,15 +11,11 @@ import { fetchCountries, fetchCountriesReset, fetchAddresses, fetchAddressesRese
 import { Items, InitialData, FormItem } from './types';
 
 // utils
-import { mockEvent } from './utils/utils';
-import { validationSchema, generateFormInputs, initialData } from './utils/formHelper';
+import { mockEvent, mapDataToSelect, generateIsChecked } from './utils/utils';
+import { validationSchema, generateFormInputs, initialData, checkBoxData } from './utils/formUtils';
 
 // styles
-import { Container, FormWrapper, TextFeild, Select, AutoComplete, FormSection } from './styles';
-
-const mapDataToSelect = (array: Array<any>, key: string, value: string) => {
-  return array ? array?.map((x: any) => ({ key: x[key], value: x[value] })) : [];
-};
+import { Container, FormWrapper, TextFeild, Select, AutoComplete, FormSection, CheckBox } from './styles';
 
 const Form: React.FC = () => {
   const dispatch = useDispatch();
@@ -46,12 +42,26 @@ const Form: React.FC = () => {
     };
   }, []);
 
+  /*
+   *handle address autoComplete selection
+   *
+   * @param event React.Event
+   * @param newValue selected value form address autocomplete
+   */
   const handleAddressSelection = (event: any, newValue: any) => {
-    formik.handleChange(mockEvent('address', newValue?.properties?.formatted || ''));
     formik.handleChange(mockEvent('address01', newValue?.properties?.address_line1 || ''));
     formik.handleChange(mockEvent('address02', newValue?.properties?.address_line2 || ''));
     formik.handleChange(mockEvent('city', newValue?.properties?.city || ''));
     formik.handleChange(mockEvent('postalCode', newValue?.properties?.postcode || ''));
+  };
+
+  /*
+   *handle checkbox checking action
+   *
+   * @param event React.Event
+   */
+  const handleCheckBoxSelection = (event: React.ChangeEvent<any>) => {
+    formik.handleChange(mockEvent(event.target.name, event.target.checked));
   };
 
   return (
@@ -89,7 +99,14 @@ const Form: React.FC = () => {
                       <AutoComplete
                         placeholder={item.placeholder}
                         data={addresses.data?.features || []}
-                        fetchData={x => dispatch(fetchAddresses({ text: x, country: formik.values['country']?.toLowerCase() }))}
+                        fetchData={x =>
+                          dispatch(
+                            fetchAddresses({
+                              text: x,
+                              country: typeof formik.values['country'] === 'string' ? formik.values['country']?.toLowerCase() : '',
+                            }),
+                          )
+                        }
                         onChange={handleAddressSelection}
                         value={formik.values[item.name]}
                         inputError={formik.errors[item.name]}
@@ -118,6 +135,13 @@ const Form: React.FC = () => {
               })}
             </FormSection>
           ))}
+
+        <CheckBox
+          labelValue="I'd like to hear more about"
+          onChange={handleCheckBoxSelection}
+          data={checkBoxData}
+          values={generateIsChecked(checkBoxData, formik.values)}
+        />
       </FormWrapper>
     </Container>
   );

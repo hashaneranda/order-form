@@ -75,3 +75,28 @@ export const AutoCompleteFormControl = styled(FormControl)`
     background-color: unset;
   }
 `;
+
+export const CheckBoxControl = styled(FormControl)`
+  .MuiInputBase-input,
+  .MuiFormLabel-root {
+    font-family: ${props => props.theme.typography.body};
+  }
+
+  .MuiFormLabel-root {
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+
+  .MuiCheckbox-root {
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+
+  .MuiIconButton-colorSecondary:hover {
+    background-color: ${props => props.theme.palette.typography.lighter};
+  }
+
+  .MuiFormGroup-root {
+    flex-direction: row;
+    margin-top: 2em;
+    gap: 6em;
+  }
+`;
