@@ -44,7 +44,7 @@ interface SelectboxProps extends SelectProps {
   data: Array<DataItem>;
 }
 
-export const Selectbox = ({ formClass, inputError, data, variant, labelValue, ...props }: SelectboxProps) => {
+export const Selectbox = ({ formClass, inputError, data, labelValue, ...props }: SelectboxProps) => {
   return (
     <SelectFormControl className={formClass} error={!!inputError}>
       {!!labelValue && <InputLabel id='demo-simple-select-outlined-label'>{labelValue}</InputLabel>}
@@ -71,7 +71,6 @@ Selectbox.defaultValue = {
 };
 
 interface AutoCompleteTextInputProps {
-  formClass?: string;
   inputError?: string;
   labelValue?: string;
   data: Array<any>;
@@ -87,7 +86,6 @@ interface AutoCompleteTextInputProps {
 
 export const AutoCompleteTextInput = ({
   labelValue,
-  formClass,
   data,
   fetchData,
   getOptionLabel,

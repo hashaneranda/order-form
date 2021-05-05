@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
 
 import { TextInput, Selectbox, AutoCompleteTextInput } from 'common/components/FormHelper/FormHelper';
 
@@ -19,6 +20,15 @@ export const FormWrapper = styled.form`
 
   .MuiInputBase-root {
     color: ${props => props.theme.palette.typography.main};
+  }
+`;
+
+export const FormSection = styled(Grid)`
+  width: 60%;
+  margin: 1.5em 0;
+
+  .MuiFormControl-root {
+    width: 100%;
   }
 `;
 

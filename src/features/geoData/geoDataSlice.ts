@@ -54,6 +54,7 @@ const createdSlice = createSlice({
         countries: initialState.countries,
       };
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fetchAddresses(state, action: PayloadAction<any | void>) {
       return {
         ...state,
