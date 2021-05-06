@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
 
 // components
 import { PrimaryButton } from 'common/components/Button/Button';
@@ -9,7 +10,7 @@ import { PrimaryButton } from 'common/components/Button/Button';
 // redux
 import { RootState } from 'app/rootReducer';
 import { fetchCountries, fetchCountriesReset, fetchAddresses, fetchAddressesReset } from 'features/geoData/geoDataSlice';
-import { createUserDetails, createUserDetailsReset, createAddressDetails, createAddressDetailsReset } from 'features/order/orderSlice';
+import { createUserDetails, createAddressDetails } from 'features/order/orderSlice';
 
 // types
 import { Items, InitialData, FormItem } from './types';
@@ -22,6 +23,7 @@ import { validationSchema, generateFormInputs, initialData, checkBoxData } from 
 import { Container, FormWrapper, TextFeild, Select, AutoComplete, FormSection, CheckBox, FooterContainer } from './styles';
 
 const Form: React.FC = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.geoData.countries);
   const addresses = useSelector((state: RootState) => state.geoData.addresses);
@@ -40,8 +42,6 @@ const Form: React.FC = () => {
     validationSchema: validationSchema,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSubmit: (v: InitialData) => {
-      console.log('submitetd--', v);
-
       setOrderData(v);
 
       dispatch(
@@ -60,8 +60,6 @@ const Form: React.FC = () => {
 
     return () => {
       dispatch(fetchCountriesReset());
-      dispatch(createUserDetailsReset());
-      dispatch(createAddressDetailsReset());
     };
   }, []);
 
@@ -83,6 +81,12 @@ const Form: React.FC = () => {
       );
     }
   }, [userDetails.data]);
+
+  useEffect(() => {
+    if (addressdetails.data) {
+      history.push('/summary');
+    }
+  }, [addressdetails]);
 
   /*
    *handle address autoComplete selection

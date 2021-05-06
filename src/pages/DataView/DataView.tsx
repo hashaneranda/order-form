@@ -1,29 +1,48 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
+
+// components
+import { PrimaryButton } from 'common/components/Button/Button';
 
 // redux
 import { RootState } from 'app/rootReducer';
+import { fetchCountriesReset, fetchAddressesReset } from 'features/geoData/geoDataSlice';
+import { createUserDetailsReset, createAddressDetailsReset } from 'features/order/orderSlice';
 
 // styles
-import { Container } from './styles';
+import { Container, DataContainer } from './styles';
 
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 const DataView: React.FC = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const userDetails = useSelector((state: RootState) => state.order.userDetails);
   const addressdetails = useSelector((state: RootState) => state.order.addressdetails);
+
+  const handleOrderReset = () => {
+    dispatch(fetchCountriesReset());
+    dispatch(fetchAddressesReset());
+    dispatch(createUserDetailsReset());
+    dispatch(createAddressDetailsReset());
+
+    history.push('/');
+  };
 
   return (
     <Container>
       <h1>Order Summary</h1>
-      <Grid container>
-        <h3>User details</h3>
+      <DataContainer container spacing={3}>
+        <Grid item lg={12}>
+          <h3>User details</h3>
+        </Grid>
         {userDetails.data &&
           Object.keys(userDetails.data).map((name: any, index: number) => (
-            <Grid container key={index}>
+            <Grid container spacing={2} key={index}>
               <Grid item lg={6}>
                 <p className='item_heading'>{capitalizeFirstLetter(name.replace(/_/g, ' '))} : </p>
               </Grid>
@@ -32,21 +51,25 @@ const DataView: React.FC = () => {
               </Grid>
             </Grid>
           ))}
-      </Grid>
-      <Grid container>
-        <h3>User Address details</h3>
+      </DataContainer>
+      <DataContainer container spacing={3}>
+        <Grid item lg={12}>
+          <h3>User Address details</h3>
+        </Grid>
         {addressdetails.data &&
           Object.keys(addressdetails.data).map((name: any, index: number) => (
-            <Grid container key={index}>
+            <Grid container spacing={2} key={index}>
               <Grid item lg={6}>
                 <p className='item_heading'>{capitalizeFirstLetter(name.replace(/_/g, ' '))} : </p>
               </Grid>
               <Grid item lg={6}>
-                <p className='item_data'>{addressdetails.data[name]}</p>
+                <p className='item_data'>{String(addressdetails.data[name])}</p>
               </Grid>
             </Grid>
           ))}
-      </Grid>
+      </DataContainer>
+
+      <PrimaryButton onClick={() => handleOrderReset()}>Reset</PrimaryButton>
     </Container>
   );
 };
