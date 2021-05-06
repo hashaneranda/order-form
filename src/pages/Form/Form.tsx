@@ -81,7 +81,6 @@ const Form: React.FC = () => {
         }),
       );
     } else if (userDetails.error) {
-      console.log('working error');
       errorNoty({ msg: 'Something went wrong!' });
     }
   }, [userDetails]);
