@@ -38,6 +38,7 @@ Install the dependencies:
 ```bash
 yarn install
 ```
+and create a new file .env and copy the content of .env.sample
 
 ### Commands
 
