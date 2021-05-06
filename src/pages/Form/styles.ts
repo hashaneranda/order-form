@@ -35,6 +35,10 @@ export const FormSection = styled(Grid)`
   .MuiFormControl-root {
     width: 100%;
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const TextFeild = styled(TextInput)`

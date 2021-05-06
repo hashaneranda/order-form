@@ -51,7 +51,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -61,7 +61,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -71,7 +71,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -81,7 +81,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
       ],
@@ -96,8 +96,8 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           data: countries,
           size: {
             lg: 6,
-            md: 6,
-            sm: 6,
+            md: 12,
+            sm: 12,
           },
         },
         {
@@ -118,7 +118,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -128,7 +128,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -138,7 +138,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -148,7 +148,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
         {
@@ -158,7 +158,7 @@ export const generateFormInputs = (countries: Array<SelectProps>): Array<Items> 
           size: {
             lg: 6,
             md: 6,
-            sm: 6,
+            sm: 12,
           },
         },
       ],

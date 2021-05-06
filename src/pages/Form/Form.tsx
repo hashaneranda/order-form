@@ -133,7 +133,7 @@ const Form: React.FC = () => {
               {formSection.data.map((item: FormItem) => {
                 if (item.type === 'select')
                   return (
-                    <Grid item sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
+                    <Grid item xs={item?.size?.sm} sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
                       <Select
                         labelValue={item.label}
                         data={item.data || []}
@@ -149,7 +149,7 @@ const Form: React.FC = () => {
 
                 if (item.type === 'autoComplete')
                   return (
-                    <Grid item sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
+                    <Grid item xs={item?.size?.sm} sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
                       <AutoComplete
                         placeholder={item.placeholder}
                         data={addresses.data?.features || []}
@@ -173,7 +173,7 @@ const Form: React.FC = () => {
                   );
 
                 return (
-                  <Grid item sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
+                  <Grid item xs={item?.size?.sm} sm={item?.size?.sm} md={item?.size?.md} lg={item?.size?.lg} key={item.name}>
                     <TextFeild
                       label={item.label}
                       id={item.name}
