@@ -6,14 +6,15 @@ export const returnSaga = (
   targetAction: ActionCreatorWithPayload<any>,
   successAction: ActionCreatorWithPayload<any>,
   errorAction: ActionCreatorWithPayload<any>,
+  status: number,
 ) => {
   return function* generator({ payload }: ReturnType<typeof targetAction>): Generator<any> {
-    let response = null;
+    let response: any = null;
 
     try {
       response = yield call(serviceFunc, payload);
 
-      if (response) {
+      if (response && response?.status === status) {
         yield put({
           type: successAction.type,
           payload: response,
@@ -22,7 +23,7 @@ export const returnSaga = (
         yield put({ type: errorAction.type, payload: response });
       }
     } catch (err) {
-      yield put({ type: errorAction.type, payload: err.response });
+      yield put({ type: errorAction.type, payload: err?.response });
     }
   };
 };

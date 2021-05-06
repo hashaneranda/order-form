@@ -11,6 +11,7 @@ export const createUserDetails = returnSaga(
   actions.createUserDetails,
   actions.createUserDetailsSuccess,
   actions.createUserDetailsError,
+  201,
 );
 
 export const createAddressDetails = returnSaga(
@@ -18,4 +19,5 @@ export const createAddressDetails = returnSaga(
   actions.createAddressDetails,
   actions.createAddressDetailsSuccess,
   actions.createAddressDetailsError,
+  201,
 );

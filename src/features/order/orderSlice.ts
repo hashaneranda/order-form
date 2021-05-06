@@ -45,7 +45,7 @@ const createdSlice = createSlice({
           ...state.userDetails,
           loading: false,
           data: null,
-          error: action?.payload ? (action?.payload.data ? action?.payload.data.message : action?.payload.data) : null,
+          error: action?.payload ? action?.payload.data : null,
         },
       };
     },
@@ -80,7 +80,7 @@ const createdSlice = createSlice({
           ...state.addressdetails,
           loading: false,
           data: null,
-          error: action?.payload ? (action?.payload.data ? action?.payload.data.message : action?.payload.data) : null,
+          error: action?.payload ? action?.payload.data : null,
         },
       };
     },

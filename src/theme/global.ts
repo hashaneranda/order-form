@@ -97,5 +97,19 @@ export default createGlobalStyle`
     border-color: ${props => props.theme.palette.typography.main};
   }
 
+  .MuiAutocomplete-popper {
+    background: ${props => props.theme.palette.background.main};
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+  
+  .MuiAutocomplete-paper{
+    background: ${props => props.theme.palette.background.main};
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+
+  .MuiAutocomplete-noOptions{
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+
 
 `;

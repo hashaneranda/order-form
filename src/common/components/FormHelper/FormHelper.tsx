@@ -103,6 +103,7 @@ Selectbox.defaultValue = {
 interface AutoCompleteTextInputProps {
   inputError?: string;
   labelValue?: string;
+  noOptionsText?: string;
   data: Array<any>;
   fetchData: (e: any) => void;
   onChange: (e: any, n: any) => void;
@@ -116,6 +117,7 @@ interface AutoCompleteTextInputProps {
 
 export const AutoCompleteTextInput = ({
   labelValue,
+  noOptionsText,
   data,
   fetchData,
   getOptionLabel,
@@ -153,6 +155,7 @@ export const AutoCompleteTextInput = ({
         includeInputInList
         filterSelectedOptions
         disabled={disabled}
+        noOptionsText={noOptionsText}
         id='tags-outlined'
         options={data}
         getOptionLabel={getOptionLabel}

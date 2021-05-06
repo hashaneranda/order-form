@@ -28,6 +28,7 @@ export const validationSchema = Yup.object().shape({
   lastName: Yup.string().required('Last Name is Required'),
   email: Yup.string().email().required('Email is Required'),
   phone: Yup.string().matches(phoneRegex, 'Invalid Telephone Number').required('Telephone Number is required'),
+  country: Yup.string().required('Country is Required'),
   address01: Yup.string().required('Address Line 1 is Required'),
   address02: Yup.string().required('Address Line 2 is Required'),
   city: Yup.string().required('City is Required'),

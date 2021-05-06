@@ -11,6 +11,7 @@ export const fetchCountries = returnSaga(
   actions.fetchCountries,
   actions.fetchCountriesSuccess,
   actions.fetchCountriesError,
+  200,
 );
 
 export const fetchAddresses = returnSaga(
@@ -18,4 +19,5 @@ export const fetchAddresses = returnSaga(
   actions.fetchAddresses,
   actions.fetchAddressesSuccess,
   actions.fetchAddressesError,
+  200,
 );

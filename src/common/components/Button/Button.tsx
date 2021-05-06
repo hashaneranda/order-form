@@ -6,13 +6,14 @@ import { PrimaryBtn } from './styles';
 
 interface PrimaryButtonProps extends ButtonProps {
   loading?: boolean;
+  loadingText?: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export const PrimaryButton = ({ children, loading, ...props }: PrimaryButtonProps) => {
+export const PrimaryButton = ({ children, loading, loadingText, ...props }: PrimaryButtonProps) => {
   return (
     <PrimaryBtn disabled={loading} {...props}>
-      {loading ? 'Loading...' : children}
+      {loading ? loadingText : children}
     </PrimaryBtn>
   );
 };

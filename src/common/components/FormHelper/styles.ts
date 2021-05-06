@@ -48,6 +48,10 @@ export const SelectFormControl = styled(FormControl)`
   .MuiSelect-select:focus {
     background-color: unset;
   }
+
+  .MuiSelect-icon {
+    color: ${props => props.theme.palette.typography.secondary};
+  }
 `;
 
 export const AutoCompleteFormControl = styled(FormControl)`
@@ -73,6 +77,15 @@ export const AutoCompleteFormControl = styled(FormControl)`
 
   .MuiSelect-select:focus {
     background-color: unset;
+  }
+
+  .MuiIconButton-root {
+    color: ${props => props.theme.palette.typography.secondary};
+  }
+
+  .MuiAutocomplete-popper {
+    background: ${props => props.theme.palette.background.main};
+    color: ${props => props.theme.palette.typography.secondary};
   }
 `;
 

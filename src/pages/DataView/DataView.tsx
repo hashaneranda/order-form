@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
@@ -24,13 +24,15 @@ const DataView: React.FC = () => {
   const userDetails = useSelector((state: RootState) => state.order.userDetails);
   const addressdetails = useSelector((state: RootState) => state.order.addressdetails);
 
+  useEffect(() => {
+    if (!addressdetails.data && !userDetails.data) history.push('/');
+  }, [userDetails, addressdetails]);
+
   const handleOrderReset = () => {
     dispatch(fetchCountriesReset());
     dispatch(fetchAddressesReset());
     dispatch(createUserDetailsReset());
     dispatch(createAddressDetailsReset());
-
-    history.push('/');
   };
 
   return (

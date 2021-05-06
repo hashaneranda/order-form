@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 // components
 import { PrimaryButton } from 'common/components/Button/Button';
+import { errorNoty } from 'common/components/Notification/Notification';
 
 // redux
 import { RootState } from 'app/rootReducer';
@@ -16,7 +17,7 @@ import { createUserDetails, createAddressDetails } from 'features/order/orderSli
 import { Items, InitialData, FormItem } from './types';
 
 // utils
-import { mockEvent, mapDataToSelect, generateIsChecked } from './utils/utils';
+import { mapDataToSelect, generateIsChecked } from './utils/utils';
 import { validationSchema, generateFormInputs, initialData, checkBoxData } from './utils/formUtils';
 
 // styles
@@ -79,13 +80,16 @@ const Form: React.FC = () => {
           watches: orderData.watches,
         }),
       );
+    } else if (userDetails.error) {
+      console.log('working error');
+      errorNoty({ msg: 'Something went wrong!' });
     }
-  }, [userDetails.data]);
+  }, [userDetails]);
 
   useEffect(() => {
     if (addressdetails.data) {
       history.push('/summary');
-    }
+    } else if (addressdetails.error) errorNoty({ msg: 'Something went wrong!' });
   }, [addressdetails]);
 
   /*
@@ -95,10 +99,16 @@ const Form: React.FC = () => {
    * @param newValue selected value form address autocomplete
    */
   const handleAddressSelection = (event: any, newValue: any) => {
-    formik.handleChange(mockEvent('address01', newValue?.properties?.address_line1 || ''));
-    formik.handleChange(mockEvent('address02', newValue?.properties?.address_line2 || ''));
-    formik.handleChange(mockEvent('city', newValue?.properties?.city || ''));
-    formik.handleChange(mockEvent('postalCode', newValue?.properties?.postcode || ''));
+    formik.setValues(
+      {
+        ...formik.values,
+        address01: newValue?.properties?.address_line1 || '',
+        address02: newValue?.properties?.address_line2 || '',
+        city: newValue?.properties?.city || '',
+        postalCode: newValue?.properties?.postcode || '',
+      },
+      true,
+    );
   };
 
   /*
@@ -107,7 +117,7 @@ const Form: React.FC = () => {
    * @param event React.Event
    */
   const handleCheckBoxSelection = (event: React.ChangeEvent<any>) => {
-    formik.handleChange(mockEvent(event.target.name, event.target.checked));
+    formik.setFieldValue(event.target.name, event.target.checked);
   };
 
   return (
@@ -154,6 +164,7 @@ const Form: React.FC = () => {
                         }
                         onChange={handleAddressSelection}
                         value=''
+                        noOptionsText='No results found'
                         clearData={() => dispatch(fetchAddressesReset())}
                         renderOption={(x: any) => x?.properties?.formatted}
                         disabled={!formik.values['country']}
@@ -187,7 +198,7 @@ const Form: React.FC = () => {
           values={generateIsChecked(checkBoxData, formik.values)}
         />
         <FooterContainer>
-          <PrimaryButton type='submit' loading={userDetails.loading || addressdetails.loading}>
+          <PrimaryButton type='submit' loading={userDetails.loading || addressdetails.loading} loadingText='SAVING...'>
             SAVE
           </PrimaryButton>
         </FooterContainer>
